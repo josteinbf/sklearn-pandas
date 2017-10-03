@@ -251,7 +251,10 @@ class DataFrameMapper(BaseEstimator, TransformerMixin):
             # Otherwise use the only estimator present
             else:
                 names = _get_feature_names(transformer)
-            if names is not None and len(names) == num_cols:
+
+            if alias is not None and len(columns) == num_cols:
+                return [name + '_' + str(o) for o in columns]
+            elif names is not None and len(names) == num_cols:
                 return [name + '_' + str(o) for o in names]
             # otherwise, return name concatenated with '_1', '_2', etc.
             else:
